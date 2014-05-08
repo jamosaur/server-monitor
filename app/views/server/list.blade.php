@@ -63,19 +63,26 @@
 @section('js')
 <script type="text/javascript">
 function uptime(){
+
     $(function(){
         @foreach($servers as $server)
-        $.getJSON("serverinfo/{{ $server->ip }}/{{ ($server->port == null ? '80' : $server->port) }}",function(result){
-            $("#status{{ $server->id }}").removeClass();
-            $("#status{{ $server->id }}").addClass(result.status);
-            $("#uptime{{ $server->id }}").html(result.uptime);
-            $("#load{{ $server->id }}").html(result.load);
-            $("#memory{{ $server->id }}").html(result.memory);
-            $("#disk{{ $server->id }}").html(result.disk);
-            
-        })
+        make_call({{ $server->id }}, "{{ $server->ip }}", {{ ($server->port == null ? '80' : $server->port) }});
         @endforeach
     });
+
+    function make_call(serverId, serverIp, serverPort){
+
+        $.getJSON("serverinfo/" + serverIp + "/" + serverPort, function(result){
+            $("#status" + serverId).removeClass();
+            $("#status" + serverId).addClass(result.status);
+            $("#uptime" + serverId).html(result.uptime);
+            $("#load" + serverId).html(result.load);
+            $("#memory" + serverId).html(result.memory);
+            $("#disk" + serverId).html(result.disk);
+
+        });
+
+    }
 }
 uptime();
 setInterval(uptime, 10000);
