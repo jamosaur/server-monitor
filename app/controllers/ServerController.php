@@ -9,7 +9,7 @@ class ServerController extends BaseController {
     	));
 	}
 	
-	public function getServerInfo($ip, $port)
+	public function getServerInfo($ip, $port = 80)
 	{
     	$ch = curl_init();
     	$url = $ip.':'.($port == null ? '80' : $port);

@@ -70,7 +70,7 @@ function uptime(){
         @endforeach
     });
 
-    function make_call(serverId, serverIp, serverPort){
+    function make_call(serverId, serverIp, serverPort = 80){
 
         $.getJSON("serverinfo/" + serverIp + "/" + serverPort, function(result){
             $("#status" + serverId).removeClass();
