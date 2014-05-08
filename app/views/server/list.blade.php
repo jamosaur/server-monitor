@@ -80,6 +80,6 @@ function uptime(){
     });
 }
 uptime();
-setInterval(uptime, 5000);
+setInterval(uptime, 30000);
 </script>
 @stop
