@@ -1,5 +1,4 @@
 <?php
-
 function sec2human($time) {
     $seconds = $time%60;
     $mins = floor($time/60)%60;
@@ -80,21 +79,23 @@ $array['load'] = $load[0].', '.$load[1].', '.$load[2];
 $hddtotal = disk_total_space("/home");
 $hddfree = disk_free_space("/home");
 $hddmath = $hddfree / $hddtotal * 100;
-$hdd = round($hddmath);
+//$hdd = round($hddmath);
 
-if ($hdd >= "51") {
-    $hddlevel = 'progress-bar-success';
-} elseif ($hdd <= "30") {
-    $hddlevel = '';
-} else {
-    $hddlevel = 'progress-bar-danger';
-}
+//if ($hdd >= "51") {
+//    $hddlevel = 'progress-bar-success';
+//} elseif ($hdd <= "30") {
+//    $hddlevel = '';
+//} else {
+//    $hddlevel = 'progress-bar-danger';
+//}
+//
+//$array['disk'] = '<div class="progress progress-striped active">
+//                              <div class="progress-bar '.$hddlevel.'"  role="progressbar" style="width: '.$hdd.'%">
+//                                '.$hdd.'%
+//                              </div>
+//                            </div>';
 
-$array['disk'] = '<div class="progress progress-striped active">
-                              <div class="progress-bar '.$hddlevel.'"  role="progressbar" style="width: '.$hdd.'%">
-                                '.$hdd.'%
-                              </div>
-                            </div>';
+$array['disk'] = round($hddmath);
 
 // Return the JSON
 echo json_encode($array);

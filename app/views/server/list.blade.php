@@ -50,7 +50,13 @@
                         <td id="uptime{{ $server->id }}">0</td>
                         <td id="load{{ $server->id }}">0</td>
                         <td id="memory{{ $server->id }}">0</td>
-                        <td id="disk{{ $server->id }}">0</td>
+                        <td id="disk{{ $server->id }}">
+                            <div class="progress progress-striped active">
+                                <div class="progress-bar '.$hddlevel.'"  role="progressbar">
+                                    '.$hdd.'%
+                                </div>
+                            </div>
+                        </td>
                     </tr>
                 @endforeach
                 </tbody>
@@ -78,7 +84,19 @@ function uptime(){
             $("#uptime" + serverId).html(result.uptime);
             $("#load" + serverId).html(result.load);
             $("#memory" + serverId).html(result.memory);
-            $("#disk" + serverId).html(result.disk);
+
+            // Disc
+            var disc = $("#disc" + serverId + " .progress-bar");
+            disc.animate({ width: result.disc }, 3000);
+            disc.html(result.disc);
+
+            if (result.disc >= "51") {
+                disc.removeClass("progress-bar-danger").addClass("progress-bar-success");
+            } else if (result.disc <= "30") {
+                disc.removeClass("progress-bar-success").addClass("progress-bar-danger");
+            } else {
+                disc.removeClass("progress-bar-success").removeClass("progress-bar-danger");
+            }
 
         });
 
