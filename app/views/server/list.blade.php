@@ -43,9 +43,7 @@
                 <tbody>
                 @foreach($servers as $server)
                 {{ ServerHelper::connect($server->ip, $server->port) }}
-                    <tr>
-                    
-                    <tr id="status{{ $server->id }}" class="kek">
+                    <tr id="status{{ $server->id }}">
                         <td>{{ $server->name }}</td>
                         <td>{{ $server->ip }}</td>
                         <td>{{ $server->provider }}</td>
