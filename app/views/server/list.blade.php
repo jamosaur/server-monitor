@@ -95,8 +95,8 @@ function make_call(serverId, serverIp, serverPort = 80){
 
         // Memory
         var memory = $("#memory" + serverId + " .progress-bar");
-        memory.animate({ width: result.memory }, 3000);
-        memory.html(result.memory);
+        memory.css({ width: result.memory + '%' });
+        memory.html(result.memory + '%');
         update_progress(memory, result.memory);
 
         // Load
@@ -104,8 +104,8 @@ function make_call(serverId, serverIp, serverPort = 80){
 
         // Disc
         var disc = $("#disc" + serverId + " .progress-bar");
-        disc.animate({ width: result.disc }, 3000);
-        disc.html(result.disc);
+        disc.css({ width: result.disc + '%' });
+        disc.html(result.disc + '%');
         update_progress(disc, result.disc);
 
     });
