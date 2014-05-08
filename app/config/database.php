@@ -1,5 +1,4 @@
 <?php
-
 return array(
 
 	/*
@@ -55,7 +54,7 @@ return array(
 		'mysql' => array(
 			'driver'    => 'mysql',
 			'host'      => 'localhost',
-			'database'  => 'database',
+			'database'  => 'server-monitor',
 			'username'  => 'root',
 			'password'  => '',
 			'charset'   => 'utf8',
