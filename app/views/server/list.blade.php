@@ -49,14 +49,19 @@
                         <td>{{ $server->provider }}</td>
                         <td id="uptime{{ $server->id }}">0</td>
                         <td id="load{{ $server->id }}">0</td>
-                        <td id="memory{{ $server->id }}">0</td>
-                        <td id="disk{{ $server->id }}">
+
+                        <td id="memory{{ $server->id }}">
                             <div class="progress progress-striped active">
-                                <div class="progress-bar '.$hddlevel.'"  role="progressbar">
-                                    '.$hdd.'%
-                                </div>
+                                <div class="progress-bar" role="progressbar"></div>
                             </div>
                         </td>
+
+                        <td id="disk{{ $server->id }}">
+                            <div class="progress progress-striped active">
+                                <div class="progress-bar" role="progressbar"></div>
+                            </div>
+                        </td>
+
                     </tr>
                 @endforeach
                 </tbody>
@@ -70,38 +75,55 @@
 <script type="text/javascript">
 function uptime(){
 
-    $(function(){
-        @foreach($servers as $server)
+    @foreach($servers as $server)
         make_call({{ $server->id }}, "{{ $server->ip }}", {{ ($server->port == null ? '80' : $server->port) }});
-        @endforeach
+    @endforeach
+
+}
+
+function make_call(serverId, serverIp, serverPort = 80){
+
+    $.getJSON("serverinfo/" + serverIp + "/" + serverPort, function(result){
+
+        // Status
+        var status = $("#status" + serverId);
+        status.removeClass();
+        status).addClass(result.status);
+
+        // Up time
+        $("#uptime" + serverId).html(result.uptime);
+
+        // Memory
+        var memory = $("#memory" + serverId + " .progress-bar");
+        memory.animate({ width: result.memory }, 3000);
+        memory.html(result.memory);
+        update_progress(memory, result.memory);
+
+        // Load
+        $("#load" + serverId).html(result.load);
+
+        // Disc
+        var disc = $("#disc" + serverId + " .progress-bar");
+        disc.animate({ width: result.disc }, 3000);
+        disc.html(result.disc);
+        update_progress(disc, result.disc);
+
     });
 
-    function make_call(serverId, serverIp, serverPort = 80){
-
-        $.getJSON("serverinfo/" + serverIp + "/" + serverPort, function(result){
-            $("#status" + serverId).removeClass();
-            $("#status" + serverId).addClass(result.status);
-            $("#uptime" + serverId).html(result.uptime);
-            $("#load" + serverId).html(result.load);
-            $("#memory" + serverId).html(result.memory);
-
-            // Disc
-            var disc = $("#disc" + serverId + " .progress-bar");
-            disc.animate({ width: result.disc }, 3000);
-            disc.html(result.disc);
-
-            if (result.disc >= "51") {
-                disc.removeClass("progress-bar-danger").addClass("progress-bar-success");
-            } else if (result.disc <= "30") {
-                disc.removeClass("progress-bar-success").addClass("progress-bar-danger");
-            } else {
-                disc.removeClass("progress-bar-success").removeClass("progress-bar-danger");
-            }
-
-        });
-
-    }
 }
+
+function update_progress(element, percent){
+
+    if (percent >= "51") {
+        element.removeClass("progress-bar-danger").addClass("progress-bar-success");
+    } else if (percent <= "30") {
+        element.removeClass("progress-bar-success").addClass("progress-bar-danger");
+    } else {
+        element.removeClass("progress-bar-success").removeClass("progress-bar-danger");
+    }
+
+}
+
 uptime();
 setInterval(uptime, 10000);
 </script>

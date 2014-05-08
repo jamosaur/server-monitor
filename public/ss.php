@@ -50,22 +50,22 @@ fclose($fh);
 
 $memmath = $memcache + $memfree;
 $memmath2 = $memmath / $memtotal * 100;
-$memoryFree = round($memmath2);
 
+//$memoryFree = round($memmath2);
+//if ($memoryFree >= "51") {
+//    $memlevel = 'progress-bar-success';
+//} elseif ($memoryFree <= "30") {
+//    $memlevel = '';
+//} else {
+//    $memlevel = 'progress-bar-danger';
+//}
+//$array['memory'] = '<div class="progress progress-striped active">
+//                              <div class="progress-bar '.$memlevel.'"  role="progressbar" style="width: '.$memoryFree.'%">
+//                                '.$memoryFree.'%
+//                              </div>
+//                            </div>';
 
-if ($memoryFree >= "51") {
-    $memlevel = 'progress-bar-success';
-} elseif ($memoryFree <= "30") {
-    $memlevel = '';
-} else {
-    $memlevel = 'progress-bar-danger';
-}
-
-$array['memory'] = '<div class="progress progress-striped active">
-                              <div class="progress-bar '.$memlevel.'"  role="progressbar" style="width: '.$memoryFree.'%">
-                                '.$memoryFree.'%
-                              </div>
-                            </div>';
+$array['memory'] = round($memmath2);
 
 
 // Get Server Load
