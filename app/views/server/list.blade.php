@@ -102,11 +102,11 @@ function make_call(serverId, serverIp, serverPort){
         // Load
         $("#load" + serverId).html(result.load);
 
-        // Disc
-        var disc = $("#disc" + serverId + " .progress-bar");
-        disc.css({ width: result.disc + '%' });
-        disc.html(result.disc + '%');
-        update_progress(disc, result.disc);
+        // Disk
+        var disk = $("#disk" + serverId + " .progress-bar");
+        disk.css({ width: result.disk + '%' });
+        disk.html(result.disk + '%');
+        update_progress(disk, result.disk);
 
     });
 
