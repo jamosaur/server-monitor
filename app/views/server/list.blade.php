@@ -81,14 +81,14 @@ function uptime(){
 
 }
 
-function make_call(serverId, serverIp, serverPort = 80){
+function make_call(serverId, serverIp, serverPort){
 
     $.getJSON("serverinfo/" + serverIp + "/" + serverPort, function(result){
 
         // Status
         var status = $("#status" + serverId);
         status.removeClass();
-        status).addClass(result.status);
+        status.addClass(result.status);
 
         // Up time
         $("#uptime" + serverId).html(result.uptime);
