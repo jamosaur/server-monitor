@@ -13,6 +13,7 @@
 
 Route::get('/', array('as' => '', 'uses' => 'ServerController@getServerData'));
 
+Route::get('serverinfo/{ip}', array('as' => '', 'uses' => 'ServerController@getServerInfo'));
 Route::get('serverinfo/{ip}/{port}', array('as' => '', 'uses' => 'ServerController@getServerInfo'));
 
 Route::get('temp', function(){
