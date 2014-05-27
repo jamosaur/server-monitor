@@ -12,7 +12,11 @@ class ServerController extends BaseController {
 	public function getServerInfo($ip, $port = 80)
 	{
     	$ch = curl_init();
-    	$url = $ip.':'.($port == null ? '80' : $port);
+    	if ($port == 80 || $port == null) {
+        	$url = str_replace('~~', '/~', $ip);
+    	} else {
+        	$url = $ip.':'.($port == null ? '80' : $port);
+    	}
     	curl_setopt($ch, CURLOPT_URL, $url.'/ss.php');
     	//curl_setopt($ch, CURLOPT_HEADER, 1); 
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);

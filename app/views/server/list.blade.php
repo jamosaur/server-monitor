@@ -115,16 +115,16 @@ function make_call(serverId, serverIp, serverPort){
 function update_progress(element, percent){
 
     if (percent >= "51") {
-        element.removeClass("progress-bar-danger").addClass("progress-bar-success");
+        element.removeClass().addClass("progress-bar progress-bar-success");
     } else if (percent <= "30") {
-        element.removeClass("progress-bar-success").addClass("progress-bar-danger");
+        element.removeClass().addClass("progress-bar");
     } else {
-        element.removeClass("progress-bar-success").removeClass("progress-bar-danger");
+        element.removeClass().addClass("progress-bar progress-bar-danger");
     }
 
 }
 
 uptime();
-setInterval(uptime, 10000);
+setInterval(uptime, 30000);
 </script>
 @stop
