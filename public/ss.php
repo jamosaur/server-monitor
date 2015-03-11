@@ -7,16 +7,16 @@ function sec2human($time) {
     return $days > 0 ? $days . ' day'.($days > 1 ? 's' : '') : $hours.':'.$mins.':'.$seconds;
 }
 
-function calculate_percentage($used, $total){ 
-    return @round(100 - $used / $total * 100, 2); 
+function calculate_percentage($used, $total){
+    return @round(100 - $used / $total * 100, 2);
 }
 
-function kb2bytes($kb){ 
-    return round($kb * 1024, 2); 
+function kb2bytes($kb){
+    return round($kb * 1024, 2);
 }
 
-function numbers_only($string){ 
-    return preg_replace('/[^0-9]/', '', $string); 
+function numbers_only($string){
+    return preg_replace('/[^0-9]/', '', $string);
 }
 
 $array = array();
@@ -32,20 +32,20 @@ $array['uptime'] = sec2human($uptime[0]);
 // Get RAM Usage
 
 $fh = fopen('/proc/meminfo', 'r');
-  $mem = 0;
-  while ($line = fgets($fh)) {
+$mem = 0;
+while ($line = fgets($fh)) {
     $pieces = array();
     if (preg_match('/^MemTotal:\s+(\d+)\skB$/', $line, $pieces)) {
-      $memtotal = $pieces[1];
+        $memtotal = $pieces[1];
     }
     if (preg_match('/^MemFree:\s+(\d+)\skB$/', $line, $pieces)) {
-      $memfree = $pieces[1];
+        $memfree = $pieces[1];
     }
     if (preg_match('/^Cached:\s+(\d+)\skB$/', $line, $pieces)) {
-      $memcache = $pieces[1];
-      break;
+        $memcache = $pieces[1];
+        break;
     }
-  }
+}
 fclose($fh);
 
 $memmath = $memcache + $memfree;
